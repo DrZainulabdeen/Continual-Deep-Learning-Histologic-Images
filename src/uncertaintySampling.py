@@ -3,24 +3,23 @@ import pandas as pd
 from scipy.stats import entropy
 import os
 import cv2
+import shutil
 
 
 class Images:
 
-    def __init__(self):
-        pass
 
     def loadImages(self, paths):
-        self.paths = paths
         images = []
-
+        fileNames = []
         for path in paths:  # get the names of all paths
             for filename in os.listdir(path):  # for every path
                 if filename.endswith(".png"):
                     img = cv2.imread(os.path.join(path, filename))
                     if img is not None:  # If image is not null append it to list
                         images.append(img)
-        return images
+                        fileNames.append(filename)
+        return fileNames, images
 
     def chooseRetrainImg(self, pathToOldImages, pathToNewImages, technique):
         self.pathToOldImages = pathToOldImages
@@ -30,7 +29,7 @@ class Images:
         score = []
         paths = [pathToOldImages, pathToNewImages]
 
-        images = self.loadImages(paths)
+        fileNames, images = self.loadImages(paths)
 
         if(technique == 'uncertaintySampling'):
 
@@ -38,6 +37,14 @@ class Images:
                 classes, counts = np.unique(image, return_counts=True)
                 score.append(entropy(counts))
 
-        score.sort()
+        chosenImages = sorted(zip(fileNames,score), key=lambda x: x[1])
 
-        return score
+        return chosenImages #TODO----->Still need to chose how many images
+
+    def updateDatabase(self, chosenImages):
+        source = 'Path of new images'
+        destination = 'Path of old images'
+
+        for image in chosenImages:
+            shutil.move(os.path.join(source,image[0]), destination)
+            
