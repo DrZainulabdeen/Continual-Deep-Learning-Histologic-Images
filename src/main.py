@@ -3,11 +3,15 @@ from uncertaintySampling import Images
 
 def main():
     images = Images()
-    chosenImages = images.chooseRetrainImg(pathToOldImages="/home/zain/Downloads/Thesis/unet-master/data/membrane/train/image",
-                                                             pathToNewImages="/home/zain/Downloads/Thesis/unet-master/data/membrane/train/label",
-                                                             technique='uncertaintySampling')
+    #oldPath = '/home/GeorgHille/zain/data/Images'
+    #newPath = '/home/GerogHille/zain/data/newImages'
+    oldPath = '/home/zain/seafile-client/seafile/Zain/Images'
+    newPath = '/home/zain/seafile-client/seafile/Zain/newImages'
+    chosenImages = images.chooseRetrainImg(
+        oldPath, newPath, technique='uncertaintySampling')
 
-    print(chosenImages)
+    print(chosenImages[0])
+
 
 '''    if(checkTrain()):
         if(checkNewImages()):
@@ -21,7 +25,6 @@ def main():
                 retrain()
                 updateDatabase(chosenImages)
 '''
-
 
 
 if __name__ == "__main__":

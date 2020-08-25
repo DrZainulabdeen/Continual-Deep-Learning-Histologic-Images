@@ -13,7 +13,7 @@ class Images:
         fileNames = []
         for path in paths:  # get the names of all paths
             for filename in os.listdir(path):  # for every path
-                if filename.endswith(".png"):
+                if filename.endswith(".png" or ".tif"):
                     img = cv2.imread(os.path.join(path, filename))
                     if img is not None:  # If image is not null append it to list
                         images.append(img)
@@ -47,7 +47,7 @@ class Images:
         for image in chosenImages:
             shutil.move(os.path.join(source, image[0]), destination)
 
-    def pred_probability(counts):
+    def pred_probability(self, counts):
         prob = []
         for sample in counts:
             n_classes = len(sample)

@@ -1,0 +1,10 @@
+numpy==1.17.4
+pandas==1.0.4
+Keras==2.3.1
+Keras-Applications==1.0.8
+Keras-Preprocessing==1.1.2
+pickle-mixin==1.0.2
+pickleshare==0.7.5
+scipy==1.4.1
+pytest-shutil==1.7.0
+python3-opencv==4.2.0
